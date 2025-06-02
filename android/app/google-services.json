@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "84415446493",
+    "project_id": "bahgastudent",
+    "storage_bucket": "bahgastudent.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84415446493:android:220eca958ff92ffc96ca34",
+        "android_client_info": {
+          "package_name": "com.example.bahga_student"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOWY6cyUORNpFRR3XfolnKYkqrtlZNtxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
