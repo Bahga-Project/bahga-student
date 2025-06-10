@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bahga_student/routes/route_names.dart';
 
+import '../service/AuthService.dart';
+
 class StudentLoginScreen extends StatefulWidget {
   const StudentLoginScreen({super.key});
 
@@ -12,6 +14,7 @@ class StudentLoginScreen extends StatefulWidget {
 }
 
 class _StudentLoginScreenState extends State<StudentLoginScreen> {
+  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool _rememberMe = false;
   final TextEditingController _emailController = TextEditingController();
@@ -57,6 +60,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
           password: _passwordController.text.trim(),
         );
 
+
         // التحقق من الطالب في Collection Students
         String uid = userCredential.user!.uid;
         QuerySnapshot studentDoc = await FirebaseFirestore.instance
@@ -75,6 +79,11 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
           );
           await FirebaseAuth.instance.signOut();
         }*/
+
+        if(!await _authService.login(_emailController.text.trim(),
+            _passwordController.text.trim())){
+          throw 'Fail';
+        }
 
         // ✅ Instead, just navigate to the home screen directly
         SharedPreferences prefs = await SharedPreferences.getInstance();

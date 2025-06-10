@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "84415446493",
-    "project_id": "bahgastudent",
-    "storage_bucket": "bahgastudent.firebasestorage.app"
+    "project_number": "965237210463",
+    "firebase_url": "https://smsbahga-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "smsbahga",
+    "storage_bucket": "smsbahga.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:84415446493:android:220eca958ff92ffc96ca34",
+        "mobilesdk_app_id": "1:965237210463:android:a5de32836c5ad3ff550aea",
         "android_client_info": {
           "package_name": "com.example.bahga_student"
         }
@@ -15,7 +16,45 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAOWY6cyUORNpFRR3XfolnKYkqrtlZNtxk"
+          "current_key": "AIzaSyA4WB7T6S-N8ehNJCF6FQOsQzVkRNX9gc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965237210463:android:9f5be9d6b605d78a550aea",
+        "android_client_info": {
+          "package_name": "com.example.sms_student_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4WB7T6S-N8ehNJCF6FQOsQzVkRNX9gc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965237210463:android:205ee326d4889c84550aea",
+        "android_client_info": {
+          "package_name": "com.example.sms_teacher_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4WB7T6S-N8ehNJCF6FQOsQzVkRNX9gc4"
         }
       ],
       "services": {

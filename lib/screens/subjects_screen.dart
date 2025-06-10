@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:bahga_student/colors.dart';
 import 'package:bahga_student/screens/material_screen.dart';
 
-
-
 class SubjectsScreen extends StatefulWidget {
   final List<Map<String, dynamic>> subjects;
 
@@ -16,68 +14,33 @@ class SubjectsScreen extends StatefulWidget {
 class _SubjectsScreenState extends State<SubjectsScreen> {
   final TextEditingController _searchController = TextEditingController();
 
-  List<Map<String, dynamic>> subjects = [
+  List<Map<String, dynamic>> subjects =
+  [
     {
       'name': 'Math',
       'icon': Icons.calculate,
       'color': Colors.red[300],
-      'materials': [
-        {'type': 'Documents', 'title': 'Math Chapter 1', 'url': 'https://example.com/math_ch1.pdf'},
-        {'type': 'Notes', 'title': 'Math Handwritten Notes', 'content': 'This is a note about Math Chapter 1.'},
+      'lessons': [
+        {
+          "title": "Lesson 1",
+          "description": "Math Lesson 1 Content",
+          'topics': [
+            {
+              'type': 'Documents',
+              'title': 'Math Chapter 1',
+              'url': 'https://example.com/physics_ch1.pdf',
+              'content': ''
+            },
+            {
+              'type': 'Notes',
+              'title': 'Math Handwritten Notes',
+              'url': 'https://example.com/physics_ch1.pdf',
+              'content': 'This is a note about Math Chapter 1.'
+            },
+          ]
+        }
       ],
-    },
-    {
-      'name': 'Chemistry',
-      'icon': Icons.science,
-      'color': Colors.purple[200],
-      'materials': [
-        {'type': 'Links', 'title': 'Chemistry Resource Link', 'url': 'https://example.com/chemistry_resource'},
-        {'type': 'Notes', 'title': 'Chemistry Notes', 'content': 'Chemistry notes for the first chapter.'},
-      ],
-    },
-    {
-      'name': 'Physics',
-      'icon': Icons.area_chart_rounded,
-      'color': Colors.orange,
-      'materials': [
-        {'type': 'Documents', 'title': 'Physics Chapter 1', 'url': 'https://example.com/physics_ch1.pdf'},
-        {'type': 'Videos', 'title': 'Physics Lecture 1', 'url': 'https://example.com/physics_lecture_1.mp4'},
-      ],
-    },
-    {
-      'name': 'Biology',
-      'icon': Icons.local_florist,
-      'color': Colors.green[300],
-      'materials': [
-        {'type': 'Videos', 'title': 'Biology Lecture 1', 'url': 'https://example.com/biology_lecture_1.mp4'},
-        {'type': 'Notes', 'title': 'Biology Notes', 'content': 'Notes on Biology Chapter 1.'},
-      ],
-    },
-    {
-      'name': 'History',
-      'icon': Icons.menu_book,
-      'color': Colors.grey,
-      'materials': [
-        {'type': 'Documents', 'title': 'History Chapter 1', 'url': 'https://example.com/history_ch1.pdf'},
-        {'type': 'Links', 'title': 'History Resource Link', 'url': 'https://example.com/history_resource'},
-      ],
-    },
-    {
-      'name': 'English',
-      'icon': Icons.language,
-      'color': Colors.blueGrey,
-      'materials': [
-        {'type': 'Videos', 'title': 'English Lecture 1', 'url': 'https://example.com/english_lecture_1.mp4'},
-        {'type': 'Links', 'title': 'English Resource Link', 'url': 'https://example.com/english_resource'},
-      ],
-    },
-
-  {
-      'name': 'Arabic',
-      'icon': Icons.create_outlined,
-      'color': Colors.blue[300],
-      'materials': [],
-    },
+    }
   ];
 
   List<Map<String, dynamic>> filteredSubjects = [];
@@ -106,10 +69,12 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
       if (filters.values.any((value) => value)) {
         filteredSubjects = filteredSubjects.where((subject) {
           List<Map<String, dynamic>> subjectMaterials =
-              (subject['materials'] as List?)?.cast<Map<String, dynamic>>() ?? [];
+              (subject['materials'] as List?)?.cast<Map<String, dynamic>>() ??
+                  [];
           return filters.entries.any((filter) =>
-          filter.value &&
-              subjectMaterials.any((material) => material['type'] == filter.key));
+              filter.value &&
+              subjectMaterials
+                  .any((material) => material['type'] == filter.key));
         }).toList();
       }
     });
@@ -119,7 +84,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
     setState(() {
       filteredSubjects = subjects
           .where((subject) =>
-          subject['name'].toLowerCase().contains(query.toLowerCase()))
+              subject['name'].toLowerCase().contains(query.toLowerCase()))
           .toList();
       _applyFilters();
     });
@@ -153,18 +118,18 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
         ),
         title: isSearching
             ? TextField(
-          controller: _searchController,
-          onChanged: _filterSubjects,
-          decoration: const InputDecoration(
-            hintText: 'Search ...',
-            border: InputBorder.none,
-          ),
-        )
+                controller: _searchController,
+                onChanged: _filterSubjects,
+                decoration: const InputDecoration(
+                  hintText: 'Search ...',
+                  border: InputBorder.none,
+                ),
+              )
             : const Text(
-          'My Subjects',
-          style:
-          TextStyle(fontWeight: FontWeight.bold, color: AppColors.white),
-        ),
+                'My Subjects',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: AppColors.white),
+              ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: AppColors.white),
@@ -207,8 +172,11 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                     MaterialPageRoute(
                       builder: (context) => MaterialScreen(
                         subjectName: subject['name'],
-                        appBarColor: _parseColor(subject['color']), // استخدام الدالة هنا
-                        materials: (subject['materials'] as List?)?.cast<Map<String, dynamic>>() ?? [],
+                        appBarColor: _parseColor(subject['color']),
+                        // استخدام الدالة هنا
+                        materials: (subject['materials'] as List?)
+                                ?.cast<Map<String, dynamic>>() ??
+                            [],
                       ),
                     ),
                   );

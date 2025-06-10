@@ -1,3 +1,4 @@
+import 'package:bahga_student/service/subject_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bahga_student/colors.dart';
 import 'package:bahga_student/utils.dart';
@@ -14,6 +15,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final SubjectService _subjectService = new SubjectService();
+
   final List<Map<String, dynamic>> timetable = [
     {
       'startTime': '07:30 AM',
@@ -71,104 +75,38 @@ class _HomeScreenState extends State<HomeScreen> {
       'teacher': 'Mona Kareem',
       'className': '',
     },
-
   ];
 
-  final List<Map<String, dynamic>> subjects = [
-    {
-      'id': 'chem',
-      'name': 'Chemistry',
-      'icon': Icons.science,
-      'color': '0xFFD8B4FE',
-      'materials': [
-        {'type': 'Links', 'title': 'Chemistry Resource Link', 'url': 'https://example.com/chemistry_resource'},
-        {'type': 'Notes', 'title': 'Chemistry Notes', 'content': 'Chemistry notes for the first chapter.'},
-      ],
-    },
-    {
-      'id': 'phys',
-      'name': 'Physics',
-      'icon': Icons.lightbulb,
-      'color': '0xFFA3E635',
-      'materials': [
-        {'type': 'Documents', 'title': 'Physics Chapter 1', 'url': 'https://example.com/physics_ch1.pdf'},
-        {'type': 'Videos', 'title': 'Physics Lecture 1', 'url': 'https://example.com/physics_lecture_1.mp4'},
-      ],
-    },
-    {
-      'id': 'bio',
-      'name': 'Biology',
-      'icon': Icons.local_florist,
-      'color': '0xFF4ADE80',
-      'materials': [
-        {'type': 'Videos', 'title': 'Biology Lecture 1', 'url': 'https://example.com/biology_lecture_1.mp4'},
-        {'type': 'Notes', 'title': 'Biology Notes', 'content': 'Notes on Biology Chapter 1.'},
-      ],
-    },
-    {
-      'id': 'arab',
-      'name': 'Arabic',
-      'icon': Icons.book,
-      'color': '0xFF60A5FA',
-      'materials': [],
-    },
-    {
-      'id': 'hist',
-      'name': 'History',
-      'icon': Icons.menu_book,
-      'color': '0xFF9E9E9E',
-      'materials': [
-        {'type': 'Documents', 'title': 'History Chapter 1', 'url': 'https://example.com/history_ch1.pdf'},
-        {'type': 'Links', 'title': 'History Resource Link', 'url': 'https://example.com/history_resource'},
-      ],
-    },
-    {
-      'id': 'eng',
-      'name': 'English',
-      'icon': Icons.language,
-      'color': '0xFF607D8B',
-      'materials': [
-        {'type': 'Videos', 'title': 'English Lecture 1', 'url': 'https://example.com/english_lecture_1.mp4'},
-        {'type': 'Links', 'title': 'English Resource Link', 'url': 'https://example.com/english_resource'},
-      ],
-    },
+  // _subjectService.getAllSubjects();
+
+  final List<Map<String, dynamic>> subjects =
+  [
     {
       'id': 'math',
       'name': 'Mathematics',
       'icon': Icons.calculate,
       'color': '0xFFFF6B6B',
-      'materials': [
-        {'type': 'Documents', 'title': 'Algebra Basics', 'url': 'https://example.com/algebra_basics.pdf'},
-        {'type': 'Notes', 'title': 'Geometry Notes', 'content': 'Key concepts in geometry for grade 10.'},
+      'lessons': [
+        {
+          "title": "Lesson 1",
+          "description": "Math Lesson 1 Content",
+          'topics': [
+            {
+              'type': 'Documents',
+              'title': 'Math Chapter 1',
+              'url': 'https://example.com/physics_ch1.pdf',
+              'content': ''
+            },
+            {
+              'type': 'Notes',
+              'title': 'Math Handwritten Notes',
+              'url': 'https://example.com/physics_ch1.pdf',
+              'content': 'This is a note about Math Chapter 1.'
+            },
+          ]
+        }
       ],
-    },
-    {
-      'id': 'geo',
-      'name': 'Geography',
-      'icon': Icons.map,
-      'color': '0xFF4CAF50',
-      'materials': [
-        {'type': 'Links', 'title': 'World Geography Resources', 'url': 'https://example.com/geography_resource'},
-        {'type': 'Videos', 'title': 'Climate Zones Lecture', 'url': 'https://example.com/climate_zones.mp4'},
-      ],
-    },
-    {
-      'id': 'cs',
-      'name': 'Computer Science',
-      'icon': Icons.computer,
-      'color': '0xFF00ACC1',
-      'materials': [
-        {'type': 'Documents', 'title': 'Programming Basics', 'url': 'https://example.com/programming_basics.pdf'},
-        {'type': 'Links', 'title': 'Coding Tutorial', 'url': 'https://example.com/coding_tutorial'},
-      ],
-    },
-    {
-      'id': 'lit',
-      'name': 'Literature',
-      'icon': Icons.library_books,
-      'color': '0xFFF06292',
-      'materials': [],
-    },
+    }
   ];
 
   bool showAllTimetable = false;
@@ -177,7 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
   //bool isHoliday() => true; // for test empty view.
   bool isHoliday() {
     final today = DateTime.now();
-    return today.weekday == DateTime.saturday || today.weekday == DateTime.sunday;
+    return today.weekday == DateTime.saturday ||
+        today.weekday == DateTime.sunday;
   }
 
   @override
@@ -281,7 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-
     );
   }
 
@@ -294,13 +232,16 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    final displayTimetable = showAllTimetable ? timetable : timetable.take(3).toList();
+    final displayTimetable =
+        showAllTimetable ? timetable : timetable.take(3).toList();
 
     return Column(
       children: [
         ...displayTimetable.map((entry) {
-          final subjectDetails = getSubjectDetails(entry['subjectId'], subjects);
-          print('HomeScreen: Processing subjectId: ${entry['subjectId']}, Found: ${subjectDetails['name']}');
+          final subjectDetails =
+              getSubjectDetails(entry['subjectId'], subjects);
+          print(
+              'HomeScreen: Processing subjectId: ${entry['subjectId']}, Found: ${subjectDetails['name']}');
           return Column(
             children: [
               TimetableCard(
@@ -336,7 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSubjectsGrid() {
-    final displaySubjects = showAllSubjects ? subjects : subjects.take(4).toList();
+    final displaySubjects =
+        showAllSubjects ? subjects : subjects.take(4).toList();
 
     return GridView.builder(
       shrinkWrap: true,
@@ -348,10 +290,8 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisSpacing: 15,
       ),
       itemCount: displaySubjects.length,
-      itemBuilder: (context, index) => SubjectCard(subject: displaySubjects[index]),
+      itemBuilder: (context, index) =>
+          SubjectCard(subject: displaySubjects[index]),
     );
   }
-
-
-
 }
