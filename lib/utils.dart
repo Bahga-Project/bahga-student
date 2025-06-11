@@ -92,6 +92,34 @@ bool validatePasswordMatch(String newPassword, String confirmPassword) {
   return newPassword == confirmPassword;
 }
 
+
+IconData parseIconFromString(String? iconName) {
+  switch (iconName?.toLowerCase()) {
+    case 'calculate':
+      return Icons.calculate;
+    case 'language':
+      return Icons.language;
+    case 'computer':
+      return Icons.computer;
+    case 'science':
+      return Icons.science;
+    case 'lightbulb':
+      return Icons.lightbulb;
+    case 'local_florist':
+      return Icons.local_florist;
+    case 'book':
+      return Icons.book;
+    case 'menu_book':
+      return Icons.menu_book;
+    case 'map':
+      return Icons.map;
+    case 'library_books':
+      return Icons.library_books;
+    default:
+      return Icons.subject; // Default icon
+  }
+}
+
 Map<String, dynamic> getSubjectDetails(String subjectId, List<Map<String, dynamic>> subjects) {
 
   print('getSubjectDetails called for subjectId: $subjectId');
@@ -114,3 +142,4 @@ Map<String, dynamic> getSubjectDetails(String subjectId, List<Map<String, dynami
     'color': Color(int.parse(subject['color'])),
   };
 }
+

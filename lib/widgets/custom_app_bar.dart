@@ -52,20 +52,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           (onFilterPressed != null
               ? [
             IconButton(
-              icon: const Icon(Icons.filter_list),
+              icon: const Icon(Icons.filter_list, color: AppColors.white,),
               onPressed: onFilterPressed,
             ),
           ]
               : null),
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: showToggleButtons
-            ? Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
+      bottom: showToggleButtons
+          ? PreferredSize(
+        preferredSize: const Size.fromHeight(30),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 4.0),
           child: Row(
+
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ToggleButton(
+
                 text: firstButtonText,
                 isSelected: isFirstSelected,
                 onTap: onFirstButtonPressed ?? () {},
@@ -77,20 +79,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-        )
-            : const SizedBox(height: 50),
-      ),
+        ),
+      )
+          : null,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
         ),
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 50);
+  Size get preferredSize => Size.fromHeight(
+    kToolbarHeight + (showToggleButtons ? 50 : 5),
+  );
 }

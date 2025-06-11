@@ -11,7 +11,7 @@ class AttendanceScreen extends StatefulWidget {
 }
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
-  DateTime selectedMonth = DateTime(2025, 2);
+  DateTime selectedMonth = DateTime(2025, 6);
   late AttendanceModel attendanceData;
 
   @override
@@ -19,26 +19,17 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     super.initState();
     attendanceData = AttendanceModel(
       presentDays: [
-        DateTime(2025, 2, 1),
-        DateTime(2025, 2, 2),
-        DateTime(2025, 2, 3),
-        DateTime(2025, 2, 4),
-        DateTime(2025, 2, 5),
-        DateTime(2025, 2, 6),
-        DateTime(2025, 2, 7),
-        DateTime(2025, 2, 8),
-        DateTime(2025, 2, 10),
-        DateTime(2025, 2, 11),
-        DateTime(2025, 2, 12),
-        DateTime(2025, 2, 13),
-        DateTime(2025, 2, 14),
-        DateTime(2025, 2, 15),
-        DateTime(2025, 2, 16),
-        DateTime(2025, 2, 17),
-        DateTime(2025, 2, 18),
-        DateTime(2025, 2, 19),
+        DateTime(2025, 6, 1),
+        DateTime(2025, 6, 2),
+        DateTime(2025, 6, 3),
+        DateTime(2025, 6, 4),
+        DateTime(2025, 6, 7),
+        DateTime(2025, 6, 8),
+        DateTime(2025, 6, 10),
+        DateTime(2025, 6, 11),
+        DateTime(2025, 6, 14)
       ],
-      absentDays: [DateTime(2025, 2, 9)],
+      absentDays: [DateTime(2025, 6, 9)],
     );
   }
 
@@ -69,7 +60,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       titleWidget: const Text(
         "Attendance",
         style: TextStyle(
-          color: AppColors.textColor,
+          color: AppColors.white,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
@@ -127,8 +118,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildSummaryCard("TOTAL PRESENT", getPresentCount(), AppColors.green),
-                      _buildSummaryCard("TOTAL ABSENT", getAbsentCount(), AppColors.deleteButtonColor),
+                      _buildSummaryCard("TOTAL PRESENT", getPresentCount(), Colors.greenAccent),
+                      _buildSummaryCard("TOTAL ABSENT", getAbsentCount(), Colors.redAccent),
                     ],
                   ),
                 ),
@@ -137,7 +128,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             ),
           ),
           Positioned(
-            top: appBarHeight -130, // ضبط الـ top عشان نص الكونتينر يتداخل مع الـ AppBar
+            top: appBarHeight -80, // ضبط الـ top عشان نص الكونتينر يتداخل مع الـ AppBar
             left: 30,
             right: 30,
             child: Container(
@@ -229,7 +220,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           margin: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isPresent ? AppColors.green : (isAbsent ? AppColors.deleteButtonColor : Colors.transparent),
+            color: isPresent ? Colors.greenAccent : (isAbsent ? Colors.redAccent : Colors.transparent),
           ),
           child: Center(
             child: Text(

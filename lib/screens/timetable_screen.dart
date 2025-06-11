@@ -105,7 +105,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
       titleWidget: const Text(
         "Timetable",
         style: TextStyle(
-          color: AppColors.textColor,
+          color: AppColors.white,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
@@ -178,7 +178,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
             ],
           ),
           Positioned(
-            top: appBarHeight - 130,
+            top: appBarHeight - 70,
             left: 30,
             right: 30,
             child: Container(

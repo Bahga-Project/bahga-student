@@ -106,6 +106,14 @@ class _AssignmentsScreenState extends State<AssignmentsScreen> {
       backgroundColor: AppColors.white,
       appBar: CustomAppBar(
         title: "Assignments",
+        titleWidget: const Text(
+          "Assignments",
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         showToggleButtons: true,
         isFirstSelected: isAssignedSelected,
         onFirstButtonPressed: () => setState(() => isAssignedSelected = true),

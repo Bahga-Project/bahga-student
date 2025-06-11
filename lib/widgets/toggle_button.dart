@@ -20,12 +20,12 @@ class ToggleButton extends StatelessWidget {
       child: AnimatedContainer(
         duration: Duration(milliseconds: 250),
         curve: Curves.easeInOut,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        margin: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: AppColors.white, width: 2),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.white, width: 1),
           boxShadow: isSelected
               ? [
             BoxShadow(
