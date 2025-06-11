@@ -7,8 +7,6 @@ import 'package:bahga_student/widgets/student_timetable_card.dart';
 import 'package:bahga_student/widgets/timetable_empty_state.dart';
 import 'package:bahga_student/widgets/subject_card.dart';
 
-import '../models/subject_model.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,15 +15,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final SubjectService _subjectService = SubjectService();
 
-  // State variables
-  List<Subject> subjects = [];
-  bool isLoadingSubjects = true;
-  bool showAllTimetable = false;
-  bool showAllSubjects = false;
+  final SubjectService _subjectService = new SubjectService();
 
-  // Timetable data
   final List<Map<String, dynamic>> timetable = [
     {
       'startTime': '07:30 AM',
@@ -85,63 +77,46 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    _loadSubjects();
-  }
+  // _subjectService.getAllSubjects();
 
-  /// Load subjects from the service
-  Future<void> _loadSubjects() async {
-    try {
-      setState(() {
-        isLoadingSubjects = true;
-      });
-
-      final loadedSubjects = await _subjectService.getAllSubjects();
-
-      setState(() {
-        subjects = loadedSubjects;
-        isLoadingSubjects = false;
-      });
-    } catch (e) {
-      setState(() {
-        isLoadingSubjects = false;
-      });
-
-      // Show error message
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to load subjects: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
+  final List<Map<String, dynamic>> subjects =
+  [
+    {
+      'id': 'math',
+      'name': 'Mathematics',
+      'icon': Icons.calculate,
+      'color': '0xFFFF6B6B',
+      'lessons': [
+        {
+          "title": "Lesson 1",
+          "description": "Math Lesson 1 Content",
+          'topics': [
+            {
+              'type': 'Documents',
+              'title': 'Math Chapter 1',
+              'url': 'https://example.com/physics_ch1.pdf',
+              'content': ''
+            },
+            {
+              'type': 'Notes',
+              'title': 'Math Handwritten Notes',
+              'url': 'https://example.com/physics_ch1.pdf',
+              'content': 'This is a note about Math Chapter 1.'
+            },
+          ]
+        }
+      ],
     }
-  }
+  ];
 
-  /// Check if today is a holiday
+  bool showAllTimetable = false;
+  bool showAllSubjects = false;
+
+  //bool isHoliday() => true; // for test empty view.
   bool isHoliday() {
     final today = DateTime.now();
     return today.weekday == DateTime.saturday ||
         today.weekday == DateTime.sunday;
-  }
-
-  /// Get subject details for timetable display
-  Map<String, dynamic> getSubjectDetails(String subjectId) {
-    return _subjectService.getSubjectDetailsMap(subjectId);
-  }
-
-  /// Convert Subject to Map for SubjectCard compatibility
-  Map<String, dynamic> subjectToMap(Subject subject) {
-    return {
-      'id': subject.id,
-      'name': subject.name,
-      'icon': subject.icon,
-      'color': subject.color,
-      'lessons': subject.lessons
-    };
   }
 
   @override
@@ -182,71 +157,67 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.message,
-              color: AppColors.white,
-            ),
-            onPressed: () {
-              print("Chat icon pressed from HomeScreen!");
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(
+        //       Icons.message,
+        //       color: AppColors.white,
+        //     ),
+        //     onPressed: () {
+        //       print("Chat icon pressed from HomeScreen!");
+        //     },
+        //   ),
+        // ],
       ),
-      body: RefreshIndicator(
-        onRefresh: _loadSubjects,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Today's Timetable Section
-              const Text(
-                "Today's Timetable",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textColor,
-                ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Today's Timetable Section
+            const Text(
+              "Today's Timetable",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textColor,
               ),
-              const SizedBox(height: 15),
-              _buildTimetable(),
-              const SizedBox(height: 30),
+            ),
+            const SizedBox(height: 15),
+            _buildTimetable(),
+            const SizedBox(height: 30),
 
-              // My Subjects Section
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "My Subjects",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textColor,
+            // My Subjects Section
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "My Subjects",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textColor,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      showAllSubjects = !showAllSubjects;
+                    });
+                  },
+                  child: Text(
+                    showAllSubjects ? "View Less" : "View All",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.blue,
                     ),
                   ),
-                  if (subjects.length > 4)
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          showAllSubjects = !showAllSubjects;
-                        });
-                      },
-                      child: Text(
-                        showAllSubjects ? "View Less" : "View All",
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 15),
-              _buildSubjectsGrid(),
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            _buildSubjectsGrid(),
+          ],
         ),
       ),
     );
@@ -256,18 +227,19 @@ class _HomeScreenState extends State<HomeScreen> {
     if (isHoliday() || timetable.isEmpty) {
       return const Center(
         child: TimetableEmptyState(
-          message: 'No classes today, it is holiday!',
+          message: ' No classes today , it is holiday!',
         ),
       );
     }
 
     final displayTimetable =
-    showAllTimetable ? timetable : timetable.take(3).toList();
+        showAllTimetable ? timetable : timetable.take(3).toList();
 
     return Column(
       children: [
         ...displayTimetable.map((entry) {
-          final subjectDetails = getSubjectDetails(entry['subjectId']);
+          final subjectDetails =
+              getSubjectDetails(entry['subjectId'], subjects);
           print(
               'HomeScreen: Processing subjectId: ${entry['subjectId']}, Found: ${subjectDetails['name']}');
           return Column(
@@ -285,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           );
         }).toList(),
-        if (timetable.length > 3)
+        if (timetable.length > 2)
           TextButton(
             onPressed: () {
               setState(() {
@@ -305,32 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSubjectsGrid() {
-    if (isLoadingSubjects) {
-      return const Center(
-        child: Padding(
-          padding: EdgeInsets.all(32.0),
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
-
-    if (subjects.isEmpty) {
-      return const Center(
-        child: Padding(
-          padding: EdgeInsets.all(32.0),
-          child: Text(
-            'No subjects available',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-            ),
-          ),
-        ),
-      );
-    }
-
     final displaySubjects =
-    showAllSubjects ? subjects : subjects.take(4).toList();
+        showAllSubjects ? subjects : subjects.take(4).toList();
 
     return GridView.builder(
       shrinkWrap: true,
@@ -342,12 +290,8 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisSpacing: 15,
       ),
       itemCount: displaySubjects.length,
-      itemBuilder: (context, index) {
-        final subject = displaySubjects[index];
-        return SubjectCard(
-          subject: subjectToMap(subject),
-        );
-      },
+      itemBuilder: (context, index) =>
+          SubjectCard(subject: displaySubjects[index]),
     );
   }
 }
