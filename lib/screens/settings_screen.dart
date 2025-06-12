@@ -31,18 +31,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Expanded(
               child: ListView(
                 children: [
-                  SettingsTile(
-                    icon: Icons.language,
-                    title: selectedLanguage,
-                    onTap: () async {
-                      final newLanguage = await showLanguageBottomSheet(context, selectedLanguage);
-                      if (newLanguage != null) {
-                        setState(() {
-                          selectedLanguage = newLanguage;
-                        });
-                      }
-                    },
-                  ),
+                  // SettingsTile(
+                  //   icon: Icons.language,
+                  //   title: selectedLanguage,
+                  //   onTap: () async {
+                  //     final newLanguage = await showLanguageBottomSheet(context, selectedLanguage);
+                  //     if (newLanguage != null) {
+                  //       setState(() {
+                  //         selectedLanguage = newLanguage;
+                  //       });
+                  //     }
+                  //   },
+                  // ),
                   SettingsTile(
                     icon: Icons.lock,
                     title: "Change password",
@@ -55,13 +55,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }
                     },
                   ),
-                  SettingsTile(
-                    icon: Icons.notifications,
-                    title: "Notifications",
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).pushNamed(RouteNames.Notifications);
-                    },
-                  ),
+                  // SettingsTile(
+                  //   icon: Icons.notifications,
+                  //   title: "Notifications",
+                  //   onTap: () {
+                  //     Navigator.of(context, rootNavigator: true).pushNamed(RouteNames.Notifications);
+                  //   },
+                  // ),
                   SettingsTile(
                     icon: Icons.description,
                     title: "Terms & Condition",
