@@ -182,17 +182,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.message,
-              color: AppColors.white,
-            ),
-            onPressed: () {
-              print("Chat icon pressed from HomeScreen!");
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(
+        //       Icons.message,
+        //       color: AppColors.white,
+        //     ),
+        //     onPressed: () {
+        //       print("Chat icon pressed from HomeScreen!");
+        //     },
+        //   ),
+        // ],
       ),
       body: RefreshIndicator(
         onRefresh: _loadSubjects,
