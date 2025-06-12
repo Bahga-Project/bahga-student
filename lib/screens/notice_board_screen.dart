@@ -40,7 +40,7 @@ class NoticeBoardScreen extends StatelessWidget {
       titleWidget: const Text(
         "Notice Board",
         style: TextStyle(
-          color: AppColors.textColor,
+          color: AppColors.white,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
@@ -132,15 +132,15 @@ class NoticeCard extends StatelessWidget {
                     color: AppColors.textColor_2,
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.download,
-                    color: AppColors.primaryColor,
-                    size: 24,
-                  ),
-                  onPressed: () {
-                  },
-                ),
+                // IconButton(
+                //   icon: const Icon(
+                //     Icons.download,
+                //     color: AppColors.primaryColor,
+                //     size: 24,
+                //   ),
+                //   onPressed: () {
+                //   },
+                // ),
               ],
             ),
           const SizedBox(height: 8),

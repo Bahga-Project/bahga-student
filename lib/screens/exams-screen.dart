@@ -6,6 +6,8 @@ import 'package:bahga_student/widgets/subject_chip.dart';
 import 'package:bahga_student/screens/exam_timetable_screen.dart';
 import 'package:bahga_student/screens/online_exam_screen.dart';
 
+import 'main_screen.dart';
+
 class ExamsScreen extends StatefulWidget {
   @override
   _ExamsScreenState createState() => _ExamsScreenState();
@@ -50,6 +52,9 @@ class _ExamsScreenState extends State<ExamsScreen> {
         title: "Exams",
         backgroundColor: AppColors.primaryColor,
         showBackButton: true,
+        onBackPressed: () {
+          MainScreen.globalKey.currentState?.changeTab(0); // الانتقال إلى HomeScreen
+        },
         titleWidget: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

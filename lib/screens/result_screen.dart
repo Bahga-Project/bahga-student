@@ -7,6 +7,8 @@ import 'package:bahga_student/widgets/result_card.dart';
 import 'package:bahga_student/screens/result_details_screen.dart';
 import 'package:bahga_student/models/result_model.dart';
 
+import 'main_screen.dart';
+
 class ResultsScreen extends StatefulWidget {
   @override
   _ResultsScreenState createState() => _ResultsScreenState();
@@ -86,6 +88,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
         title: "Results",
         backgroundColor: AppColors.primaryColor,
         showBackButton: true,
+        onBackPressed: () {
+          MainScreen.globalKey.currentState?.changeTab(0); // navegate to homescreen
+        },
         titleWidget: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

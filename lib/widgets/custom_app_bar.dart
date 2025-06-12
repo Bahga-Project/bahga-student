@@ -11,6 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final bool showToggleButtons;
   final bool isFirstSelected;
+  final VoidCallback? onBackPressed;
   final VoidCallback? onFirstButtonPressed;
   final VoidCallback? onSecondButtonPressed;
   final String firstButtonText;
@@ -25,6 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = false,
     this.showToggleButtons = false,
     this.isFirstSelected = true,
+    this.onBackPressed,
     this.onFirstButtonPressed,
     this.onSecondButtonPressed,
     this.firstButtonText = "Offline",
@@ -45,7 +47,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: showBackButton
           ? IconButton(
         icon: const Icon(Icons.arrow_back, color: AppColors.white),
-        onPressed: () => Navigator.pop(context),
+        onPressed: onBackPressed ?? () => Navigator.pop(context),
+        //onPressed: () => Navigator.pop(context),
       )
           : null,
       actions: actions ??

@@ -15,5 +15,6 @@ class RouteNames {
   static const String Report = '/ReportScreen';
   static const String Settings = '/SettingsScreen';
   static const String Material = '/MaterialScreen';
-  static const String AssignmentDetail = '/AssignmentDetailScreen'; // New route
+  static const String AssignmentDetail = '/AssignmentDetailScreen';
+  // New route
 }

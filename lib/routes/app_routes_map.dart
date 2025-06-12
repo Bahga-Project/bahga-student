@@ -29,6 +29,7 @@ class AppRoutesMap {
     RouteNames.Timetable: (context) => TimetableScreen(),
     RouteNames.Notice_board: (context) => NoticeBoardScreen(),
     RouteNames.Settings: (context) => SettingsScreen(),
+
     // RouteNames.Material: (context) => MaterialScreen(),
     RouteNames.AssignmentDetail: (context) {
       final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;

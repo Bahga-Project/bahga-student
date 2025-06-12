@@ -42,16 +42,16 @@ class _ResultDetailsPageState extends State<ResultDetailsPage> {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.download),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Downloading result...")),
-              );
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.download),
+        //     onPressed: () {
+        //       ScaffoldMessenger.of(context).showSnackBar(
+        //         const SnackBar(content: Text("Downloading result...")),
+        //       );
+        //     },
+        //   ),
+        // ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
