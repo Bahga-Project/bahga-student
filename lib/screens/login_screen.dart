@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bahga_student/routes/route_names.dart';
 
@@ -55,7 +56,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
     if (_formKey.currentState!.validate()) {
       try {
         // تسجيل الدخول باستخدام Firebase Auth
-       /* UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        /* UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
@@ -213,43 +214,79 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                               ),
                             ),
                           ),
-                          TextFormField(
-                            controller: _passwordController,
-                            obscureText: !_isPasswordVisible,
-                            decoration: InputDecoration(
-                              hintText: 'Enter your password',
-                              hintStyle: const TextStyle(
-                                  fontSize: 15, color: Color(0x666B6969)),
-                              prefixIcon: const Icon(Icons.lock),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _isPasswordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Flexible(
+                                flex: 8, // 80% of the space for the TextFormField
+                                child: TextFormField(
+                                  controller: _passwordController,
+                                  obscureText: !_isPasswordVisible,
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter your password',
+                                    hintStyle: const TextStyle(fontSize: 15, color: Color(0x666B6969)),
+                                    prefixIcon: const Icon(Icons.lock),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _isPasswordVisible = !_isPasswordVisible;
+                                        });
+                                      },
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(width: 0, color: Color(0xFFD7D5D5)),
+                                    ),
+                                    filled: true,
+                                    fillColor: const Color(0xBFFFFFFF),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your password';
+                                    }
+                                    if (value.length < 6) {
+                                      return 'Enter a valid password (at least 6 characters)';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                onPressed: () {
-                                  setState(() {
-                                    _isPasswordVisible = !_isPasswordVisible;
-                                  });
-                                },
                               ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: const BorderSide(
-                                    width: 0, color: Color(0xFFD7D5D5)),
+                              const SizedBox(width: 10), // Space between field and icon
+                              Flexible(
+                                flex: 2, // 20% of the space for the camera icon
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.camera_alt,
+                                    color: Color(0xFF3395BD),
+                                    size: 35, // Increased icon size
+                                  ),
+                                  onPressed: () async {
+                                    try {
+                                      final ImagePicker picker = ImagePicker();
+                                      final XFile? image = await picker.pickImage(source: ImageSource.camera);
+                                      if (image != null) {
+                                        // Handle the captured image here
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Image captured successfully!')),
+                                        );
+                                      } else {
+                                        // User canceled the camera
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('No image captured')),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Error opening camera: $e')),
+                                      );
+                                    }
+                                  },
+                                ),
                               ),
-                              filled: true,
-                              fillColor: const Color(0xBFFFFFFF),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              if (value.length < 6) {
-                                return 'Enter a valid password (at least 6 characters)';
-                              }
-                              return null;
-                            },
+                            ],
                           ),
                           const SizedBox(height: 10),
                           Wrap(
