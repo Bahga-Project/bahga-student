@@ -268,10 +268,21 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                                       final ImagePicker picker = ImagePicker();
                                       final XFile? image = await picker.pickImage(source: ImageSource.camera);
                                       if (image != null) {
+
+                                        final ok = await _authService.compareFaces(_emailController.text.trim(), image);
                                         // Handle the captured image here
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text('Image captured successfully!')),
-                                        );
+                                        if(ok){
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(content: Text('Logged in successfully!')),
+                                          );
+                                          Navigator.pushReplacementNamed(context, RouteNames.mainScreen);
+                                        }else{
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(content: Text('Email and face do not match!')),
+                                          );
+                                        }
+
+
                                       } else {
                                         // User canceled the camera
                                         ScaffoldMessenger.of(context).showSnackBar(
