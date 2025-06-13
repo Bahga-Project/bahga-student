@@ -7,7 +7,6 @@ import 'package:bahga_student/widgets/student_timetable_card.dart';
 import 'package:bahga_student/widgets/timetable_empty_state.dart';
 import 'package:bahga_student/widgets/subject_card.dart';
 
-
 import '../models/subject_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,61 +28,47 @@ class _HomeScreenState extends State<HomeScreen> {
   // Timetable data
   final List<Map<String, dynamic>> timetable = [
     {
-      'startTime': '07:30 AM',
-      'endTime': '09:00 AM',
-      'subjectId': 'math',
-      'teacher': 'Ali Ahmed',
-      'className': '',
+      "startTime": '08:00 AM',
+      "endTime": '09:00 AM',
+      "subjectId": 'arab',
+      "className": '2 A',
+      "teacher": 'Fatima Abbas',
     },
     {
-      'startTime': '07:30 AM',
-      'endTime': '09:00 AM',
-      'subjectId': 'arab',
-      'teacher': 'Sara Abbas',
-      'className': '',
+      "startTime": '09:00 AM',
+      "endTime": '10:00 AM',
+      "subjectId": 'phys',
+      "className": '2 A',
+      "teacher": 'Hassan Mona',
     },
     {
-      'startTime': '07:30 AM',
-      'endTime': '09:00 AM',
-      'subjectId': 'cs',
-      'teacher': 'Rohby',
-      'className': '',
+      "startTime": '10:00 AM',
+      "endTime": '11:00 AM',
+      "subjectId": 'cs',
+      "className": '2 A',
+      "teacher": 'Rohby',
     },
     {
-      'startTime': '07:30 AM',
-      'endTime': '09:00 AM',
-      'subjectId': 'chem',
-      'teacher': 'Rohby',
-      'className': '',
+      "startTime": '11:00 AM',
+      "endTime": '12:00 PM',
+      "subjectId": 'geo',
+      "className": '2 A',
+      "teacher": 'Rohby Rohby',
     },
     {
-      'startTime': '07:30 AM',
-      'endTime': '09:00 AM',
-      'subjectId': 'phys',
-      'teacher': 'Rohby',
-      'className': '',
+      "startTime": '12:00 PM',
+      "endTime": '01:00 PM',
+      "subjectId": 'math',
+      "className": '2 A',
+      "teacher": 'Ali Ahmed',
     },
     {
-      'startTime': '09:00 AM',
-      'endTime': '10:00 AM',
-      'subjectId': 'eng',
-      'teacher': 'Mona Kareem',
-      'className': '',
-    },
-    {
-      'startTime': '09:00 AM',
-      'endTime': '10:00 AM',
-      'subjectId': 'hist',
-      'teacher': 'Mona Kareem',
-      'className': '',
-    },
-    {
-      'startTime': '09:00 AM',
-      'endTime': '10:00 AM',
-      'subjectId': 'geo',
-      'teacher': 'Mona Kareem',
-      'className': '',
-    },
+      "startTime": '01:00 PM',
+      "endTime": '02:00 PM',
+      "subjectId": 'arab',
+      "className": '2 A',
+      "teacher": 'Sara Abbas',
+    }
   ];
 
   @override
@@ -155,8 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CircleAvatar(
-              backgroundImage:
-              const AssetImage('assets/images/boy.png'),
+              backgroundImage: const AssetImage('assets/images/boy.png'),
               onBackgroundImageError: (exception, stackTrace) {
                 print('Error loading image: $exception');
               },
@@ -266,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     final displayTimetable =
-    showAllTimetable ? timetable : timetable.take(3).toList();
+        showAllTimetable ? timetable : timetable.take(3).toList();
 
     return Column(
       children: [
@@ -334,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     final displaySubjects =
-    showAllSubjects ? subjects : subjects.take(4).toList();
+        showAllSubjects ? subjects : subjects.take(4).toList();
 
     return GridView.builder(
       shrinkWrap: true,

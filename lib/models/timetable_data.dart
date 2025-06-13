@@ -253,7 +253,7 @@ Map<String, List<TimetableEntry>> timetableData = {
     TimetableEntry(
       startTime: '08:00 AM',
       endTime: '09:00 AM',
-      subjectId: 'bio',
+      subjectId: 'arab',
       className: '2 A',
       teacher: 'Fatima Abbas',
     ),
