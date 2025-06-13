@@ -30,6 +30,11 @@ dependencies:
   url_launcher: ^6.0.10
   flutter_pdfview: ^1.2.1
   image_picker: ^1.1.2
+  file_picker: ^6.2.1
+  open_file: ^3.5.4
+
+
+
 
 
 
@@ -46,5 +51,7 @@ flutter:
     - assets/images/assignment.png
     - assets/images/logo2.jpg
     - assets/images/student_login.gif
+    - assets/images/student.png
+    - assets/images/boy.png
     - assets/icons/
     - assets/animations/Work time.gif

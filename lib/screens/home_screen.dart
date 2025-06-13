@@ -7,6 +7,7 @@ import 'package:bahga_student/widgets/student_timetable_card.dart';
 import 'package:bahga_student/widgets/timetable_empty_state.dart';
 import 'package:bahga_student/widgets/subject_card.dart';
 
+
 import '../models/subject_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -153,9 +154,12 @@ class _HomeScreenState extends State<HomeScreen> {
         titleWidget: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const CircleAvatar(
-              radius: 20,
-              backgroundImage: AssetImage('assets/images/student_avatar.png'),
+            CircleAvatar(
+              backgroundImage:
+              const AssetImage('assets/images/boy.png'),
+              onBackgroundImageError: (exception, stackTrace) {
+                print('Error loading image: $exception');
+              },
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -163,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Kauan Sousa",
+                    "Anas Soliman",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -171,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Text(
-                    "Class: 10 A",
+                    "Class_2A",
                     style: TextStyle(
                       fontSize: 12,
                       color: AppColors.white.withOpacity(0.8),

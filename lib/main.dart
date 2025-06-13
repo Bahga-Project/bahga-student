@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:bahga_student/routes/app_routes_map.dart';
 import 'package:bahga_student/routes/route_names.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'screens/assignments_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/main_screen.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: GoogleFonts.cairoTextTheme(),
         radioTheme: RadioThemeData(
           fillColor: MaterialStateProperty.all(Colors.blue), // اللون الجديد للدائرة
         ),
@@ -56,33 +58,7 @@ class MyApp extends StatelessWidget {
       // Already connected with its globalKey inside
 
       // ✅ Named routes for pages outside bottom navigation
-      /*routes: {
-        '/splash': (context) => SplashScreen(),
-        '/login': (context) => StudentLoginScreen(),
-        '/main': (context) => MainScreen(),
-        "/home": (context) => HomeScreen(),
-        "/assignments": (context) => AssignmentsScreen(),
-        "/menu": (context) => MenuSheet(),
-        "/exams": (context) => ExamsScreen(),
-        "/results": (context) => ResultsScreen(),
-        "/timetable": (context) => TimetableScreen(),
-        "/attendance": (context) => AttendanceScreen(),
-        "/notice-board": (context) => NoticeBoardScreen(),
-        "/settings": (context) => SettingsScreen(),
-        "/notifications": (context) => NotificationsScreen(),
-        "/terms": (context) => TermsScreen(),
-        "/about-us": (context) => AboutUsScreen(),
-        "/contact-us": (context) => ContactUsScreen(),
 
-        /*
-
-
-        "/report": (context) => ReportScreen(),
-        "/guardian-details": (context) => GuardianDetailsScreen(),
-        "/holidays": (context) => HolidaysScreen(),
-        "/gallery": (context) => GalleryScreen(),
-        */
-      },*/
     );
   }
 }

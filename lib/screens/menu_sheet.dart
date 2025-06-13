@@ -43,27 +43,26 @@ class MenuSheet extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          radius: 30,
-          backgroundColor: AppColors.primaryColor.withOpacity(0.1),
-          child: Icon(Icons.person, size: 35, color: AppColors.primaryColor),
+          backgroundImage:
+          const AssetImage('assets/images/boy.png'),
+          onBackgroundImageError: (exception, stackTrace) {
+            print('Error loading image: $exception');
+          },
         ),
         SizedBox(width: 15),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Kauan Sousa",
+              "Anas Soliman",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
             Text(
-              "Class: 10 A - English",
+              "Class_2A",
               style: TextStyle(color: Colors.grey[600]),
             ),
-            Text(
-              "Roll No: 31",
-              style: TextStyle(color: Colors.grey[600]),
-            ),
+
           ],
         ),
       ],
