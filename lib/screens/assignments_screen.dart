@@ -24,8 +24,8 @@ class _AssignmentsScreenState extends State<AssignmentsScreen> {
     {
       "title": "Homework",
       "subject": "English - Theory",
-      "date": "21-12-2024",
-      "due": "Due, 22 December 2024, 09:17 AM",
+      "date": "15-06-2025",
+      "due": "Due, 17 June 2025, 03:00 PM",
       "iconPath": "assets/icons/english.png",
       "color": AppColors.materialColor,
       "status": "Assigned",
@@ -34,8 +34,8 @@ class _AssignmentsScreenState extends State<AssignmentsScreen> {
     {
       "title": "Assignment 1",
       "subject": "English - Theory",
-      "date": "19-12-2024",
-      "due": "Due, 19 December 2024, 01:01 AM",
+      "date": "18-06-2025",
+      "due": "Due, 20 June 2025, 09:00 AM",
       "iconPath": "assets/icons/english.png",
       "color": AppColors.materialColor,
       "status": "Assigned",
@@ -44,8 +44,8 @@ class _AssignmentsScreenState extends State<AssignmentsScreen> {
     {
       "title": "Basic Maths operations",
       "subject": "Mathematics - Theory",
-      "date": "16-07-2024",
-      "due": "Due, 31 July 2024, 05:00 AM",
+      "date": "20-06-2025",
+      "due": "Due, 25 June 2025, 11:00 AM",
       "iconPath": "assets/icons/math.png",
       "color": AppColors.materialColor,
       "status": "Assigned",

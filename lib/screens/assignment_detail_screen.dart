@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:bahga_student/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AssignmentDetailScreen extends StatefulWidget {
   final Map<String, dynamic> assignment;
-  final Function(String) onSubmit;
+  final Function(String solution) onSubmit;
 
-  AssignmentDetailScreen({required this.assignment, required this.onSubmit});
+  const AssignmentDetailScreen({
+    Key? key,
+    required this.assignment,
+    required this.onSubmit,
+  }) : super(key: key);
 
   @override
-  _AssignmentDetailScreenState createState() => _AssignmentDetailScreenState();
+  State<AssignmentDetailScreen> createState() => _AssignmentDetailScreenState();
 }
 
 class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
   final TextEditingController _solutionController = TextEditingController();
+  bool _submitted = false;
 
   @override
   void dispose() {
@@ -20,80 +26,98 @@ class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
     super.dispose();
   }
 
+  void _handleSubmit() {
+    final solutionText = _solutionController.text.trim();
+    if (solutionText.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please write a solution before submitting.")),
+      );
+      return;
+    }
+
+    widget.onSubmit(solutionText);
+    setState(() {
+      _submitted = true;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Assignment submitted successfully!")),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final assignment = widget.assignment;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.assignment["title"]),
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.appBarColor,
+        title: Text(
+          "Assignment Detail",
+          style: GoogleFonts.cairo(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Title
             Text(
-              "Subject: ${widget.assignment["subject"]}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              assignment['title'],
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+
+            SizedBox(height: 10),
+
+            // Subject
             Text(
-              "Due: ${widget.assignment["due"]}",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+              assignment['subject'],
+              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
             ),
-            SizedBox(height: 16),
+
+            SizedBox(height: 10),
+
+            // Due Date
             Text(
-              "Assignment Details",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              assignment['due'],
+              style: TextStyle(fontSize: 14, color: Colors.red[700]),
             ),
-            SizedBox(height: 8),
+
+            Divider(height: 30),
+
+            // Input field for solution
             Text(
-              "Enter your solution below:",
-              style: TextStyle(fontSize: 14),
+              "Your Solution:",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 8),
             TextField(
               controller: _solutionController,
               maxLines: 5,
               decoration: InputDecoration(
+                hintText: "Write your solution here...",
                 border: OutlineInputBorder(),
-                hintText: "Type your solution here...",
+                filled: true,
+                fillColor: Colors.grey[100],
               ),
             ),
-            SizedBox(height: 16),
-            if (widget.assignment["status"] == "Assigned")
-              ElevatedButton(
-                onPressed: () {
-                  if (_solutionController.text.isNotEmpty) {
-                    widget.onSubmit(_solutionController.text);
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Assignment submitted successfully!")),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Please enter a solution before submitting.")),
-                    );
-                  }
-                },
-                child: Text("Submit"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.materialColor,
-                  foregroundColor: Colors.white,
-                ),
+
+            SizedBox(height: 10),
+
+            // Submit button
+            ElevatedButton(
+              onPressed: _submitted ? null : _handleSubmit,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.appBarColor,
               ),
-            if (widget.assignment["status"] == "Submitted") ...[
-              SizedBox(height: 16),
-              Text(
-                "Your Solution:",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(
-                widget.assignment["solution"] ?? "No solution provided",
-                style: TextStyle(fontSize: 14),
-              ),
-            ],
+              child: Text(_submitted ? "Submitted" : "Submit"),
+            ),
           ],
         ),
       ),

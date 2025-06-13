@@ -48,7 +48,7 @@ Map<String, List<TimetableEntry>> timetableData = {
       endTime: '11:00 AM',
       subjectId: 'eng',
       className: '2 A',
-      teacher: 'Hager Mossa',
+      teacher: 'Hager Mousa',
     ),
     TimetableEntry(
       startTime: '11:00 AM',
@@ -106,7 +106,7 @@ Map<String, List<TimetableEntry>> timetableData = {
       endTime: '01:00 PM',
       subjectId: 'eng',
       className: '2 A',
-      teacher: 'Hager Mossa',
+      teacher: 'Hager Mousa',
     ),
     TimetableEntry(
       startTime: '01:00 PM',
@@ -166,7 +166,7 @@ Map<String, List<TimetableEntry>> timetableData = {
       endTime: '09:00 AM',
       subjectId: 'eng',
       className: '2 A',
-      teacher: 'Hager Mossa',
+      teacher: 'Hager Mousa',
     ),
     TimetableEntry(
       startTime: '09:00 AM',
@@ -224,7 +224,7 @@ Map<String, List<TimetableEntry>> timetableData = {
       endTime: '11:00 AM',
       subjectId: 'eng',
       className: '2 A',
-      teacher: 'Hager Mossa',
+      teacher: 'Hager Mousa',
     ),
     TimetableEntry(
       startTime: '11:00 AM',
