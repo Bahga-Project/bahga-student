@@ -7,15 +7,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
   final CollectionReference students =
-  FirebaseFirestore.instance.collection('students');
+      FirebaseFirestore.instance.collection('students');
 
-  Future<bool> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       // Query Firestore for a document with matching email
-      QuerySnapshot query = await students.where('Email', isEqualTo: email).get();
+      QuerySnapshot query =
+          await students.where('Email', isEqualTo: email).get();
 
       if (query.docs.isEmpty) {
-        return false;
+        return {'isAuth': false, 'name': ''};
       }
 
       // Assuming email is unique, take the first matching document
@@ -24,25 +25,30 @@ class AuthService {
 
       // Check if password matches
       if (data['Password'] == password) {
-       return true;
+        return {
+          'isAuth': true,
+          'name': data['FirstName'] + ' ' + data['LastName'],
+          'level': data['Level'],
+          'class': data['Class']
+        };
       }
     } catch (e) {
       print('Error during login: $e');
-      return false;
-
+      return {'isAuth': false, 'name': ''};
     }
-    return false;
-  }
 
+    return {'isAuth': false, 'name': ''};
+  }
 
   var faceSdk = regula.FaceSDK.instance;
 
-  Future<bool> compareFaces(String email, XFile loginImage) async {
+  Future<Map<String, dynamic>> compareFaces(
+      String email, XFile loginImage) async {
     // Query Firestore for a document with matching email
     QuerySnapshot query = await students.where('Email', isEqualTo: email).get();
 
     if (query.docs.isEmpty) {
-      return false;
+      return {'isAuth': false, 'name': ''};
     }
 
     // Assuming email is unique, take the first matching document
@@ -59,8 +65,10 @@ class AuthService {
     // final capturedImageBase64 = base64Encode(capturedImageBytes);
 
     // Create MatchFacesImage objects
-    final firstImage = regula.MatchFacesImage(storedImageBytes, regula.ImageType.PRINTED);
-    final secondImage = regula.MatchFacesImage(capturedImageBytes, regula.ImageType.PRINTED);
+    final firstImage =
+        regula.MatchFacesImage(storedImageBytes, regula.ImageType.PRINTED);
+    final secondImage =
+        regula.MatchFacesImage(capturedImageBytes, regula.ImageType.PRINTED);
     // final secondImage = regula.MatchFacesImage()
     //   ..imageType = regula.ImageType.LIVE
     //   ..bitmap = capturedImageBase64;
@@ -82,16 +90,18 @@ class AuthService {
       // Show result
       if (similarity > 75) {
         print('Faces match! Similarity: ${similarity.toStringAsFixed(2)}%');
-        return true;
+        return {
+          'isAuth': true,
+          'name': data['FirstName'] + ' ' + data['LastName']
+        };
       } else {
-        print('Faces do not match. Similarity: ${similarity.toStringAsFixed(2)}%');
-        return false;
+        print(
+            'Faces do not match. Similarity: ${similarity.toStringAsFixed(2)}%');
+        return {'isAuth': false, 'name': ''};
       }
-
-    } catch(e){
+    } catch (e) {
       print("ex {e}");
-      return false;
+      return {'isAuth': false, 'name': ''};
     }
   }
-
 }

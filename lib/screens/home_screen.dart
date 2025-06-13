@@ -6,6 +6,7 @@ import 'package:bahga_student/widgets/custom_app_bar.dart';
 import 'package:bahga_student/widgets/student_timetable_card.dart';
 import 'package:bahga_student/widgets/timetable_empty_state.dart';
 import 'package:bahga_student/widgets/subject_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/subject_model.dart';
 
@@ -18,6 +19,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final SubjectService _subjectService = SubjectService();
+  String name = "Sara Soliman";
+  String level = "2nd Grade";
+  String sClass = "3B";
 
   // State variables
   List<Subject> subjects = [];
@@ -74,7 +78,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _loadSavedData();
     _loadSubjects();
+  }
+
+  Future<void> _loadSavedData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? "Sara Soliman";
+      level = prefs.getString('level') ?? "2nd Grade";
+      sClass = prefs.getString('class') ?? "3B";
+    });
   }
 
   /// Load subjects from the service
@@ -110,8 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Check if today is a holiday
   bool isHoliday() {
     final today = DateTime.now();
-    return today.weekday == DateTime.saturday ||
-        today.weekday == DateTime.sunday;
+    return today.weekday == DateTime.friday;
   }
 
   /// Get subject details for timetable display
@@ -150,8 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Anas Soliman",
+                  Text(
+                    name,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -159,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Text(
-                    "Class_2A",
+                    level + " - Class:" + sClass,
                     style: TextStyle(
                       fontSize: 12,
                       color: AppColors.white.withOpacity(0.8),

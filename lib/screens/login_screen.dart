@@ -27,6 +27,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
   void initState() {
     super.initState();
     _loadSavedData();
+    _resetUser();
   }
 
   Future<void> _loadSavedData() async {
@@ -40,12 +41,20 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
     });
   }
 
+  Future<void> _resetUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('name');
+    await prefs.remove('level');
+    await prefs.remove('class');
+  }
+
   Future<void> _saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_rememberMe) {
       await prefs.setBool('student_rememberMe', _rememberMe);
       await prefs.setString('student_email', _emailController.text.trim());
-      await prefs.setString('student_password', _passwordController.text.trim());
+      await prefs.setString(
+          'student_password', _passwordController.text.trim());
     } else {
       await prefs.remove('student_rememberMe');
       await prefs.remove('student_email');
@@ -82,17 +91,23 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
           await FirebaseAuth.instance.signOut();
         }*/
 
-        if(!await _authService.login(_emailController.text.trim(),
-            _passwordController.text.trim())){
+        Map<String, dynamic> res = await _authService.login(
+            _emailController.text.trim(), _passwordController.text.trim());
+
+        if (!res['isAuth']) {
           throw 'Fail';
         }
 
         // ✅ Instead, just navigate to the home screen directly
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('student_password', _passwordController.text.trim());
+        prefs.setString('name', res['name']);
+        prefs.setString('level', res['level']);
+        prefs.setString('class', res['class']);
 
         await _saveData(); // still save data if "remember me" is active
-        Navigator.pushReplacementNamed(context, RouteNames.mainScreen);// حفظ البيانات لو الـ Remember Me مفعل
+        Navigator.pushReplacementNamed(context,
+            RouteNames.mainScreen); // حفظ البيانات لو الـ Remember Me مفعل
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login failed: $e')),
@@ -149,7 +164,8 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                   key: _formKey,
                   child: SingleChildScrollView(
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxHeight: double.infinity),
+                      constraints:
+                          const BoxConstraints(maxHeight: double.infinity),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -196,7 +212,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                                 return 'Please enter your email';
                               }
                               final emailRegex =
-                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                  RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                               if (!emailRegex.hasMatch(value.trim())) {
                                 return 'Please enter a valid email';
                               }
@@ -219,27 +235,33 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                           Row(
                             children: [
                               Flexible(
-                                flex: 8, // 80% of the space for the TextFormField
+                                flex: 8,
+                                // 80% of the space for the TextFormField
                                 child: TextFormField(
                                   controller: _passwordController,
                                   obscureText: !_isPasswordVisible,
                                   decoration: InputDecoration(
                                     hintText: 'Enter your password',
-                                    hintStyle: const TextStyle(fontSize: 15, color: Color(0x666B6969)),
+                                    hintStyle: const TextStyle(
+                                        fontSize: 15, color: Color(0x666B6969)),
                                     prefixIcon: const Icon(Icons.lock),
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                        _isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
                                       ),
                                       onPressed: () {
                                         setState(() {
-                                          _isPasswordVisible = !_isPasswordVisible;
+                                          _isPasswordVisible =
+                                              !_isPasswordVisible;
                                         });
                                       },
                                     ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(width: 0, color: Color(0xFFD7D5D5)),
+                                      borderSide: const BorderSide(
+                                          width: 0, color: Color(0xFFD7D5D5)),
                                     ),
                                     filled: true,
                                     fillColor: const Color(0xBFFFFFFF),
@@ -255,7 +277,8 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                                   },
                                 ),
                               ),
-                              const SizedBox(width: 10), // Space between field and icon
+                              const SizedBox(width: 10),
+                              // Space between field and icon
                               Flexible(
                                 flex: 2, // 20% of the space for the camera icon
                                 child: IconButton(
@@ -267,32 +290,55 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                                   onPressed: () async {
                                     try {
                                       final ImagePicker picker = ImagePicker();
-                                      final XFile? image = await picker.pickImage(source: ImageSource.camera);
+                                      final XFile? image =
+                                          await picker.pickImage(
+                                              source: ImageSource.camera);
                                       if (image != null) {
-
-                                        final ok = await _authService.compareFaces(_emailController.text.trim(), image);
+                                        Map<String, dynamic> res =
+                                            await _authService.compareFaces(
+                                                _emailController.text.trim(),
+                                                image);
                                         // Handle the captured image here
-                                        if(ok){
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(content: Text('Logged in successfully!')),
+                                        if (res['isAuth']) {
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+
+                                          prefs.setString('name', res['name']);
+                                          prefs.setString('level', res['level']);
+                                          prefs.setString('class', res['class']);
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content: Text(
+                                                    'Logged in successfully!')),
                                           );
-                                          Navigator.pushReplacementNamed(context, RouteNames.mainScreen);
-                                        }else{
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(content: Text('Email and face do not match!')),
+                                          Navigator.pushReplacementNamed(
+                                              context, RouteNames.mainScreen);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content: Text(
+                                                    'Email and face do not match!')),
                                           );
                                         }
-
-
                                       } else {
                                         // User canceled the camera
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text('No image captured')),
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content:
+                                                  Text('No image captured')),
                                         );
                                       }
                                     } catch (e) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('Error opening camera: $e')),
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Error opening camera: $e')),
                                       );
                                     }
                                   },

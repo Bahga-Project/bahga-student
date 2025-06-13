@@ -2,8 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:bahga_student/colors.dart';
 import 'package:bahga_student/screens/main_screen.dart';
 import 'package:bahga_student/routes/route_names.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MenuSheet extends StatelessWidget {
+class MenuSheet extends StatefulWidget {
+  const MenuSheet({super.key});
+
+  @override
+  _MenuSheet createState() => _MenuSheet();
+}
+
+class _MenuSheet extends State<MenuSheet> {
+  String name = "Sara Soliman";
+  String level = "2nd Grade";
+  String sClass = "3B";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedData();
+  }
+
+  Future<void> _loadSavedData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? "Sara Soliman";
+      level = prefs.getString('level') ?? "2nd Grade";
+      sClass = prefs.getString('class') ?? "3B";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,8 +70,7 @@ class MenuSheet extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage:
-          const AssetImage('assets/images/boy.png'),
+          backgroundImage: const AssetImage('assets/images/boy.png'),
           onBackgroundImageError: (exception, stackTrace) {
             print('Error loading image: $exception');
           },
@@ -54,15 +80,14 @@ class MenuSheet extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Anas Soliman",
+              name,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
             Text(
-              "Class_2A",
+              level + " - Class:" + sClass,
               style: TextStyle(color: Colors.grey[600]),
             ),
-
           ],
         ),
       ],
@@ -136,13 +161,16 @@ class MenuSheet extends StatelessWidget {
     Navigator.pop(context); // Close menu sheet
     switch (label) {
       case 'Attendance':
-        Navigator.of(context, rootNavigator: true).pushNamed(RouteNames.Attendance);
+        Navigator.of(context, rootNavigator: true)
+            .pushNamed(RouteNames.Attendance);
         break;
       case 'Timetable':
-        Navigator.of(context, rootNavigator: true).pushNamed(RouteNames.Timetable);
+        Navigator.of(context, rootNavigator: true)
+            .pushNamed(RouteNames.Timetable);
         break;
       case 'Notice Board':
-        Navigator.of(context, rootNavigator: true).pushNamed(RouteNames.Notice_board);
+        Navigator.of(context, rootNavigator: true)
+            .pushNamed(RouteNames.Notice_board);
 
         break;
       case 'Exams':
@@ -153,7 +181,8 @@ class MenuSheet extends StatelessWidget {
         break;
 
       case 'Settings':
-        Navigator.of(context, rootNavigator: true).pushNamed(RouteNames.Settings); // Settings tab index
+        Navigator.of(context, rootNavigator: true)
+            .pushNamed(RouteNames.Settings); // Settings tab index
         break;
       default:
         break;
