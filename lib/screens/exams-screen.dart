@@ -17,10 +17,28 @@ class _ExamsScreenState extends State<ExamsScreen> {
   String selectedFilter = "All";
 
   final List<Map<String, dynamic>> exams = [
-    {"name": " Midterm", "date": "2025-06-15", "type": "Offline"},
-    {"name": "Science Quiz", "date": "2025-04-10", "type": "Offline"},
-    {"name": "English Quiz", "date": "2025-06-12", "type": "Online"},
-    {"name": " Final", "date": "2025-06-18", "type": "Offline"},
+    { "name": 'Chemistry Basics Quiz', "date": '2025-04-01', "type": 'Online' },
+    { "name": 'Physics Mechanics Quiz', "date": '2025-04-03', "type": 'Offline' },
+    { "name": 'Biology Cell Structure Quiz', "date": '2025-04-06', "type": 'Online' },
+    { "name": 'Arabic Vocabulary Quiz', "date": '2025-04-09', "type": 'Offline' },
+    { "name": 'History World Wars Quiz', "date": '2025-04-12', "type": 'Online' },
+    { "name": 'English Grammar Quiz', "date": '2025-04-15', "type": 'Offline' },
+    { "name": 'Mathematics Algebra Quiz', "date": '2025-04-18', "type": 'Online' },
+    { "name": 'Geography Climate Quiz', "date": '2025-04-21', "type": 'Offline' },
+    { "name": 'Computer Science Coding Quiz', "date": '2025-04-24', "type": 'Online' },
+    { "name": 'Literature Poetry Quiz', "date": '2025-04-27', "type": 'Offline' },
+    { "name": 'Chemistry Reactions Quiz', "date": '2025-04-30', "type": 'Online' },
+    { "name": 'Physics Electricity Quiz', "date": '2025-05-03', "type": 'Offline' },
+    { "name": 'Biology Genetics Quiz', "date": '2025-05-06', "type": 'Online' },
+    { "name": 'Arabic Literature Quiz', "date": '2025-05-09', "type": 'Offline' },
+    { "name": 'History Ancient Civilizations Quiz', "date": '2025-05-12', "type": 'Online' },
+    { "name": 'English Writing Skills Quiz', "date": '2025-05-15', "type": 'Offline' },
+    { "name": 'Mathematics Geometry Quiz', "date": '2025-05-20', "type": 'Online' },
+    { "name": 'Geography Landforms Quiz', "date": '2025-05-25', "type": 'Offline' },
+    { "name": 'Computer Science Algorithms Quiz', "date": '2025-06-01', "type": 'Online' },
+    { "name": 'Literature Novel Analysis Quiz', "date": '2025-06-10', "type": 'Offline' },
+    { "name": " Midterm", "date": "2025-06-15", "type": "Offline" },
+    { "name": " Final", "date": "2025-06-18", "type": "Offline" },
   ];
 
   @override
@@ -135,13 +153,13 @@ class _ExamsScreenState extends State<ExamsScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: isOnline ? Colors.blue.withOpacity(0.1) : Colors.green.withOpacity(0.1),
+                color: isOnline ? Colors.green.withOpacity(0.1) : Colors.blue.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 exam["type"],
                 style: TextStyle(
-                  color: isOnline ? Colors.blue : Colors.green,
+                  color: isOnline ? Colors.green : Colors.blue,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),

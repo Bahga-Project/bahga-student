@@ -15,13 +15,84 @@ class NoticeBoardScreen extends StatelessWidget {
 
   final List<Notice> notices = const [
     Notice(
-      title: "Career Day",
-      date: "about a year ago",
+      title: "Meet Our New Librarian, Ms. Sara Soliman, at Open House",
+      date: "yesterday",
     ),
     Notice(
-      title: "Sports day",
-      imageName: "event.png",
-      date: "9 months ago",
+      title: "New Geography Quiz Added: World Capitals",
+      date: "2 days ago",
+    ),
+    Notice(
+      title: "Creative Writing Workshop with Ms. Hager Mousa",
+      date: "3 days ago",
+    ),
+    Notice(
+      title: "New Peer Tutoring Program for Math and Science",
+      date: "4 days ago",
+    ),
+    Notice(
+      title: "Physics Group Project: Build a Model Bridge",
+      date: "5 days ago",
+    ),
+    Notice(
+      title: "New Arabic Teacher, Mrs. Sara Abbas, Starts This Week",
+      date: "1 week ago",
+    ),
+    Notice(
+      title: "Updated School App with Assignment Tracker Feature",
+      date: "1 week ago",
+    ),
+    Notice(
+      title: "Join the New Debate Team for Public Speaking",
+      date: "2 weeks ago",
+    ),
+    Notice(
+      title: "Chemistry Lab Experiment Added: Chemical Reactions",
+      date: "2 weeks ago",
+    ),
+    Notice(
+      title: "New Online Portal for Submitting Art Portfolios",
+      date: "3 weeks ago",
+    ),
+    Notice(
+      title: "Welcome Coach Abdullah to the Soccer Team!",
+      date: "3 weeks ago",
+    ),
+    Notice(
+      title: "School Garden Club Launches Spring Planting Project",
+      date: "3 weeks ago",
+    ),
+    Notice(
+      title: "New English Essay Assignment: Literary Analysis",
+      date: "3 weeks ago",
+    ),
+    Notice(
+      title: "Science Lab Safety Training Session Scheduled",
+      date: "3 weeks ago",
+    ),
+    Notice(
+      title: "New Art Teacher, Mr. Fady, Joins Our Faculty",
+      date: "4 weeks ago",
+    ),
+    Notice(
+      title: "Updated History Project: World War II Research Paper",
+      date: "4 weeks ago",
+    ),
+    Notice(
+      title: "Join the New Robotics Club for Tech Enthusiasts",
+      date: "4 weeks ago",
+    ),
+    Notice(
+      title: "Library Upgrades with New Digital Resources",
+      date: "1 month ago",
+    ),
+    Notice(
+      title: "New Math Assignment Added: Algebra Problem Set",
+      date: "1 month ago",
+    ),
+    Notice(
+      title: "Welcome Our New Biology Teacher, Ms. Carter!",
+      date: "1 month ago",
     ),
   ];
 

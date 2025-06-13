@@ -44,7 +44,7 @@ class ExamTimetablePage extends StatelessWidget {
             subject: "English",
             marks: "100 Marks",
             type: "Theory",
-            date: "01-11-2023",
+            date: "18-06-2025",
             time: "10:30 AM - 12:30 AM",
           ),
           _buildDivider(),
@@ -54,47 +54,47 @@ class ExamTimetablePage extends StatelessWidget {
             subject: "Mathematics",
             marks: "50 Marks",
             type: "Theory",
-            date: "02-11-2023",
+            date: "20-06-2025",
             time: "10:30 AM - 12:30 AM",
           ),
           _buildDivider(),
 
-          // Physical Education
+          // Biology
           ExamCard(
-            subject: "Physical Education",
+            subject: "Biology",
             marks: "100 Marks",
             type: "Practical",
-            date: "03-11-2023",
+            date: "21-06-2025",
             time: "10:30 AM - 12:30 AM",
           ),
           _buildDivider(),
 
           // Hindi
           ExamCard(
-            subject: "Hindi",
+            subject: "Chemistry",
             marks: "100 Marks",
             type: "Theory",
-            date: "04-11-2023",
+            date: "23-06-2025",
             time: "10:30 AM - 12:30 AM",
           ),
           _buildDivider(),
 
           // Environmental Studies
           ExamCard(
-            subject: "Environmental Studies",
+            subject: "Computer Science",
             marks: "50 Marks",
             type: "Theory",
-            date: "06-11-2023",
+            date: "25-06-2025",
             time: "10:30 AM - 12:30 AM",
           ),
           _buildDivider(),
 
           // Art and Craft
           ExamCard(
-            subject: "Art and Craft",
+            subject: "History",
             marks: "50 Marks",
             type: "Theory",
-            date: "07-11-2023",
+            date: "27-06-2025",
             time: "10:30 AM - 12:30 AM",
           ),
         ],
@@ -108,7 +108,7 @@ class ExamTimetablePage extends StatelessWidget {
       child: Divider(
         height: 1,
         thickness: 1,
-        color: AppColors.textColor,
+        color: Colors.grey.shade50,
       ),
     );
   }
