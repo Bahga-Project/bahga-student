@@ -26,11 +26,11 @@ class _ResultsScreenState extends State<ResultsScreen> {
 
   final List<ResultModel> allResults = [
     ResultModel(
-      examName: "Mid Year Exam 2023",
-      date: "01-11-2023",
+      examName: "Mid Year Exam 2025",
+      date: "01-4-2025",
       grade: "A",
       percentage: "93.56",
-      subject: "English - Theory",
+      subject: "English ",
       isOffline: true,
       totalObtained: 45.0,
       totalMarks: 50.0,
@@ -41,8 +41,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
       ],
     ),
     ResultModel(
-      examName: "Final Exam 2023",
-      date: "15-12-2023",
+      examName: "Final Exam 2024",
+      date: "15-6-2025",
       grade: "B+",
       percentage: "85.00",
       subject: "Mathematics - Theory",
@@ -57,7 +57,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
     ),
     ResultModel(
       examName: "Science Quiz",
-      date: "05-12-2023",
+      date: "05-4-2025",
       grade: "A",
       percentage: "90.00",
       subject: "Science - Theory",
@@ -65,9 +65,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
       totalObtained: 45.0,
       totalMarks: 50.0,
       subjects: [
-        {"name": "Math", "obtained": 95, "total": 100},
-        {"name": "Science", "obtained": 93, "total": 100},
-        {"name": "English", "obtained": 94, "total": 100},
+        // {"name": "Math", "obtained": 95, "total": 100},
+         {"name": "Science", "obtained": 93, "total": 100},
+        // {"name": "English", "obtained": 94, "total": 100},
       ],
     ),
   ];
