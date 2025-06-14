@@ -92,7 +92,9 @@ class AuthService {
         print('Faces match! Similarity: ${similarity.toStringAsFixed(2)}%');
         return {
           'isAuth': true,
-          'name': data['FirstName'] + ' ' + data['LastName']
+          'name': data['FirstName'] + ' ' + data['LastName'],
+          'level': data['Level'],
+          'class': data['Class']
         };
       } else {
         print(

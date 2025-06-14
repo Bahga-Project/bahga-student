@@ -295,9 +295,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                                               source: ImageSource.camera);
                                       if (image != null) {
                                         Map<String, dynamic> res =
-                                            await _authService.compareFaces(
-                                                _emailController.text.trim(),
-                                                image);
+                                            await _authService.compareFaces(_emailController.text.trim(), image);
                                         // Handle the captured image here
                                         if (res['isAuth']) {
                                           SharedPreferences prefs =
